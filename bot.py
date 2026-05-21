@@ -1,5 +1,6 @@
 from collections import UserDict
 
+
 class Field:
     def __init__(self, value):
         self.value = value
@@ -7,9 +8,11 @@ class Field:
     def __str__(self):
         return str(self.value)
 
+
 class Name(Field):
     # Обов'язкове поле, логіка базового класу Field повністю підходить
     pass
+
 
 class Phone(Field):
     def __init__(self, value):
@@ -17,6 +20,7 @@ class Phone(Field):
         if not (isinstance(value, str) and value.isdigit() and len(value) == 10):
             raise ValueError("Phone number must contain exactly 10 digits.")
         super().__init__(value)
+
 
 class Record:
     def __init__(self, name):
@@ -38,7 +42,7 @@ class Record:
         phone_to_edit = self.find_phone(old_number)
         if not phone_to_edit:
             raise ValueError(f"Phone number {old_number} not found.")
-        
+
         # Перевірка нового номера через створення тимчасового об'єкта Phone
         new_phone = Phone(new_number)
         phone_to_edit.value = new_phone.value
@@ -52,6 +56,7 @@ class Record:
 
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
+
 
 class AddressBook(UserDict):
     def add_record(self, record):
